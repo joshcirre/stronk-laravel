@@ -119,22 +119,28 @@ new class extends Component
                     <div class="mt-8 space-y-4">
                         <flux:heading>STRONK SNIPPETS</flux:heading>
 
-                        @forelse ($snippets as $snippet)
-                            <div class="group/input">
-                                <flux:input
-                                    value="{{ $snippet->content }}"
-                                    readonly
-                                    copyable
-                                    class="w-full text-center"
-                                />
-                            </div>
-                        @empty
-                            <p class="py-4 text-center text-gray-400">🦍 NO STRONK SAVES TO SHARE 🦍</p>
-                        @endforelse
-
-                        <div class="mt-6">
-                            {{ $snippets->links() }}
-                        </div>
+                        <flux:table :paginate="$snippets">
+                            <flux:rows>
+                                @forelse ($snippets as $snippet)
+                                    <flux:row :key="$snippet->id">
+                                        <flux:cell>
+                                            <flux:input
+                                                value="{{ $snippet->content }}"
+                                                readonly
+                                                copyable
+                                                class="w-full text-center"
+                                            />
+                                        </flux:cell>
+                                    </flux:row>
+                                @empty
+                                    <flux:row>
+                                        <flux:cell class="text-center text-gray-400">
+                                            No saved snippets yet. Try saving some text above! 🦍
+                                        </flux:cell>
+                                    </flux:row>
+                                @endforelse
+                            </flux:rows>
+                        </flux:table>
                     </div>
                 @endauth
             </div>
