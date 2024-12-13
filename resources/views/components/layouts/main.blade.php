@@ -1,3 +1,10 @@
+<?php
+use Livewire\Volt\Component;
+
+new class extends Component {};
+?>
+
+
 <!DOCTYPE html>
 <html lang="{{ str_replace("_", "-", app()->getLocale()) }}">
     <head>
@@ -17,14 +24,14 @@
         @fluxStyles
     </head>
 
-    <body class="flex items-center justify-center max-w-md min-h-screen m-auto bg-white dark dark:bg-zinc-800">
-        <div class="w-full">
-            {{ $slot }}
-        </div>
-        @persist("toast")
-            <flux:toast />
-        @endpersist
+    <body class="min-h-screen bg-white dark dark:bg-zinc-800">
+        {{ $slot }}
+        @volt("layouts.main")
+            @persist("toast")
+                <flux:toast />
+            @endpersist
 
-        @fluxScripts
+            @fluxScripts()
+        @endvolt
     </body>
 </html>
